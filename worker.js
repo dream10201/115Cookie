@@ -1,7 +1,6 @@
 const CID=""
 const SEID=""
 const UID=""
-let reloadFlag = false;
 const newC = {
     url: 'https://115.com',
     name: '',
@@ -39,16 +38,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 newC["name"] = "UID";
                 newC["value"] = UID;
                 setCookie(newC);
-                if (!cookie && !reloadFlag) {
-                    reloadFlag = !reloadFlag;
-                    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                        if (tabs[0]) {
-                            chrome.tabs.reload(tabs[0].id);
-                        }
-                    });
-                }else{
-                    reloadFlag = !reloadFlag;
-                }
+                // if (!cookie && !reloadFlag) {
+                //     reloadFlag = !reloadFlag;
+                //     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                //         if (tabs[0]) {
+                //             chrome.tabs.reload(tabs[0].id);
+                //         }
+                //     });
+                // }
             }
         });
         const responseMessage = { reply: "你好，来自后台脚本的问候!" };
