@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "115Cookie",
+  "version": "1.0",
+  "description": "115 cookie update.",
+  "permissions":  [
+    "cookies",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
