@@ -1,6 +1,7 @@
 const CID=""
 const SEID=""
 const UID=""
+const domain = [{"url":"https://115.com","domain":".115.com"},{"url":"https://anxia.com","domain":".anxia.com"}]
 const newC = {
     url: 'https://115.com',
     name: '',
@@ -29,15 +30,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log("收到消息:", message);
         chrome.cookies.get({ url: "https://115.com", name: "SEID" }, (cookie) => {
             if (CID.length > 0 && SEID.length > 0 && UID.length > 0){
-                newC["name"] = "CID";
-                newC["value"] = CID;
-                setCookie(newC);
-                newC["name"] = "SEID";
-                newC["value"] = SEID;
-                setCookie(newC);
-                newC["name"] = "UID";
-                newC["value"] = UID;
-                setCookie(newC);
+                for(let i=0;i<domain.length;i++){
+                    newC["url"] = domain[i]["url"];
+                    newC["domain"] = domain[i]["domain"];
+                    
+                    newC["name"] = "CID";
+                    newC["value"] = CID;
+                    setCookie(newC);
+                    newC["name"] = "SEID";
+                    newC["value"] = SEID;
+                    setCookie(newC);
+                    newC["name"] = "UID";
+                    newC["value"] = UID;
+                    setCookie(newC);
+                }
                 // if (!cookie && !reloadFlag) {
                 //     reloadFlag = !reloadFlag;
                 //     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
