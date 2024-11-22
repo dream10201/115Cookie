@@ -7,7 +7,7 @@
     "https://115.com/",
     "https://*.115.com/"
   ],
-  "permissions":  [
+  "permissions": [
     "cookies",
     "storage",
     "scripting"
@@ -17,8 +17,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ]
 }
