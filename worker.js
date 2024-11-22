@@ -17,6 +17,7 @@ const newC = {
     expirationDate: 253402300799,
     path: '/'
 };
+let isExpired = false;
 function setCookie(newC) {
     return new Promise((resolve, reject) => {
         chrome.cookies.set(newC, cookie => {
@@ -30,27 +31,32 @@ function setCookie(newC) {
         });
     });
 }
+function applayCookie(){
+    if (CID.length > 0 && SEID.length > 0 && UID.length > 0) {
+        for (let i = 0; i < domain.length; i++) {
+            newC['url'] = domain[i]['url'];
+            newC['domain'] = domain[i]['domain'];
+            newC['name'] = 'CID';
+            newC['value'] = CID;
+            setCookie(newC);
+            newC['name'] = 'SEID';
+            newC['value'] = SEID;
+            setCookie(newC);
+            newC['name'] = 'UID';
+            newC['value'] = UID;
+            setCookie(newC);
+        }
+    }
+}
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'greet') {
+        if(!isExpired){
+            applayCookie();
+        }
         fetch('https://115.com/?ct=offline&ac=space').then(response => {
             if (response.redirected) {
                 sendResponse('offline');
-            } else {
-                if (CID.length > 0 && SEID.length > 0 && UID.length > 0) {
-                    for (let i = 0; i < domain.length; i++) {
-                        newC['url'] = domain[i]['url'];
-                        newC['domain'] = domain[i]['domain'];
-                        newC['name'] = 'CID';
-                        newC['value'] = CID;
-                        setCookie(newC);
-                        newC['name'] = 'SEID';
-                        newC['value'] = SEID;
-                        setCookie(newC);
-                        newC['name'] = 'UID';
-                        newC['value'] = UID;
-                        setCookie(newC);
-                    }
-                }
+                isExpired = true;
             }
         });
     }
