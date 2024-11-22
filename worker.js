@@ -1,6 +1,4 @@
-const CID = '';
-const SEID = '';
-const UID = '';
+
 const domain = [
     {
         'url': 'https://115.com',
