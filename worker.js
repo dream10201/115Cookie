@@ -32,19 +32,25 @@ function setCookie(newC) {
     });
 }
 function applayCookie(){
-    if (CID.length > 0 && SEID.length > 0 && UID.length > 0 && KID.length > 0) {
-        for (let i = 0; i < domain.length; i++) {
-            newC['url'] = domain[i]['url'];
+    for (let i = 0; i < domain.length; i++) {
+        newC['url'] = domain[i]['url'];
+        if (CID.length > 0){
             newC['domain'] = domain[i]['domain'];
             newC['name'] = 'CID';
             newC['value'] = CID;
             setCookie(newC);
+        }
+        if (SEID.length > 0){
             newC['name'] = 'SEID';
             newC['value'] = SEID;
             setCookie(newC);
+        }
+        if (UID.length > 0){
             newC['name'] = 'UID';
             newC['value'] = UID;
             setCookie(newC);
+        }
+        if (KID.length > 0){
             newC['name'] = 'KID';
             newC['value'] = KID;
             setCookie(newC);
