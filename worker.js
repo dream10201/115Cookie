@@ -12,6 +12,7 @@ const CONFIG = {
     EXPIRATION_DATE: 253402300799 
 };
 
+let COOKIE_STATE=true;
 async function setCookie(cookieDetails) {
     return new Promise((resolve, reject) => {
         chrome.cookies.set(cookieDetails, (cookie) => {
@@ -50,15 +51,21 @@ async function applyCookies() {
     });
     console.log("Cookie application process finished.");
 }
-
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'greet') {
         (async () => {
             try {
-                await applyCookies();
-                const response = await fetch('https://115.com/?ct=offline&ac=space');
+                if(COOKIE_STATE){
+                    await applyCookies();
+                }
+                await delay(5000);
+                const response = await fetch('https://115.com/?cid=0&offset=0&mode=wangpan');
                 
                 if (response.redirected) {
+                    COOKIE_STATE=false;
                     console.log('Login check failed: Redirected.');
                     sendResponse({ status: 'login_failed' });
                 } else {
