@@ -57,14 +57,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         (async () => {
             try {
                 await applyCookies();
-                sendResponse({ status: 'applyCookies' });
-                // await delay(5000);
-                // const response = await fetch('https://115.com/?cid=0&offset=0&mode=wangpan');
-                // if (response.redirected) {
-                //     sendResponse({ status: 'login_failed' });
-                // } else {
-                //     sendResponse({ status: 'login_success' });
-                // }
             } catch (error) {
                 sendResponse({ status: 'error', message: error.message });
             }
