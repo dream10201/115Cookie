@@ -11,6 +11,11 @@ const CONFIG = {
     },
     EXPIRATION_DATE: 253402300799 
 };
+const expirationTimestamp = (() => {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() + 1);
+  return Math.floor(d.getTime() / 1000);
+})();
 async function setCookie(cookieDetails) {
     return new Promise((resolve, reject) => {
         chrome.cookies.set(cookieDetails, (cookie) => {
@@ -33,7 +38,7 @@ async function applyCookies() {
                     name: name,
                     value: value,
                     path: '/',
-                    expirationDate: CONFIG.EXPIRATION_DATE
+                    expirationDate: expirationTimestamp
                 };
                 tasks.push(setCookie(cookieDetails));
             }
